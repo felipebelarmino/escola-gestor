@@ -2,6 +2,35 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
 
+<p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+
+## Descrição
+
+Sistema de Gestão Escolar desenvolvido com o framework [NestJS](https://github.com/nestjs/nest), utilizando TypeScript, EJS, TypeORM e um banco de dados relacional.
+
+## Módulos Implementados
+
+### Gestão de Alunos
+- CRUD completo para alunos.
+- Visualização de detalhes dos alunos, incluindo idade, classe e status.
+
+### Controle de Faltas e Presenças
+- Registro, edição e exclusão de presenças ou faltas.
+- Listagem detalhada das presenças associadas a cada aluno.
+
+### Gestão de Notas
+- CRUD completo de notas por disciplina.
+- Histórico de notas de alunos, incluindo datas e detalhes.
+
+### Relatórios Financeiros
+- Controle de entradas e saídas financeiras.
+- Resumo financeiro exibindo saldo, entradas e saídas.
+- Registro e edição de transações financeiras.
+
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
+
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
