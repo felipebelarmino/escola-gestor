@@ -1,50 +1,282 @@
+/* Reset básico */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f9f9f9;
     color: #333;
+    line-height: 1.6;
 }
 
+/* Header */
 .header {
+    background: linear-gradient(45deg, #2196F3, #1E88E5);
+    color: white;
+    padding: 1.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-left .logo img {
+    height: 50px;
+    width: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.header-left .logo img:hover {
+    transform: scale(1.1);
+}
+
+.header h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.header-right .btn-primary {
+    padding: 0.8rem 1.5rem;
     background-color: #4CAF50;
     color: white;
-    text-align: center;
-    padding: 1rem 0;
-}
-
-.container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    color: #4CAF50;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #ddd;
-}
-
-li:last-child {
-    border-bottom: none;
-}
-
-a {
-    color: #4CAF50;
     text-decoration: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
 }
 
-a:hover {
-    text-decoration: underline;
+.header-right .btn-primary:hover {
+    background-color: #45a049;
+}
+
+.header-right .btn-secondary {
+    padding: 0.8rem 1.5rem;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-right: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.header-right .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Tabela de Alunos */
+.students-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+
+.students-table th,
+.students-table td {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.students-table th {
+    background-color: #2196F3;
+    color: white;
+    font-weight: bold;
+}
+
+.students-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.students-table .actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.students-table .btn-secondary,
+.students-table .btn-danger {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.students-table .btn-secondary {
+    background-color: #6c757d;
+}
+
+.students-table .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.students-table .btn-danger {
+    background-color: #e74c3c;
+}
+
+.students-table .btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Formulário Inline */
+.inline-form {
+    display: inline;
+    margin: 0;
+}
+
+/* Mensagem para lista vazia */
+.no-students-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    margin: 2rem 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .students-table th,
+    .students-table td {
+        font-size: 0.9rem;
+    }
+
+    .students-table .actions {
+        flex-direction: column;
+    }
+}
+
+/* Formulário de Registro */
+.attendance-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.attendance-form label {
+    font-weight: bold;
+    color: #555;
+}
+
+.attendance-form input[type="date"],
+.attendance-form select,
+.attendance-form textarea {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.attendance-form textarea {
+    resize: none;
+    height: 100px;
+}
+
+.attendance-form input:focus,
+.attendance-form select:focus,
+.attendance-form textarea:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-actions .btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.form-actions .btn-save {
+    background-color: #4CAF50;
+}
+
+.form-actions .btn-save:hover {
+    background-color: #45a049;
+}
+
+.form-actions .btn-cancel {
+    background-color: #e74c3c;
+}
+
+.form-actions .btn-cancel:hover {
+    background-color: #c0392b;
+}
+
+/* Lista de Presenças */
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+
+.attendance-table th,
+.attendance-table td {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.attendance-table th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+.attendance-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.attendance-table .btn {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.attendance-table .btn-secondary {
+    background-color: #6c757d;
+}
+
+.attendance-table .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.attendance-table .btn-danger {
+    background-color: #e74c3c;
+}
+
+.attendance-table .btn-danger:hover {
+    background-color: #c0392b;
 }

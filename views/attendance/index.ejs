@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -10,21 +10,50 @@
 
 <body>
     <header class="header">
+        <div class="header-left">
+            <!-- Ícone para voltar à Home -->
+            <a href="/" class="logo">
+                <img src="https://5.imimg.com/data5/TX/KH/GLADMIN-9740327/online-school-management-software-500x500.jpg"
+                    alt="Escola Gestor">
+            </a>
+        </div>
         <h1>Controle de Faltas e Presenças</h1>
+
     </header>
+
     <main class="container">
-        <section>
-            <h2>Lista de Alunos</h2>
-            <ul>
-                <% students.forEach(student=> { %>
-                    <li>
-                        <a href="/attendance/<%= student.id %>">
-                            <%= student.name %>
-                        </a>
-                    </li>
-                    <% }); %>
-            </ul>
-        </section>
+        <% if (students.length> 0) { %>
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th>Nome do Aluno</th>
+                        <th>Classe</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% students.forEach(student=> { %>
+                        <tr>
+                            <td>
+                                <%= student.name %>
+                            </td>
+                            <td>
+                                <%= student.class %>
+                            </td>
+                            <td class="actions">
+                                <a href="/attendance/<%= student.id %>" class="btn btn-secondary">Visualizar
+                                    Presenças</a>
+                                <form action="/attendance/delete/<%= student.id %>" method="POST" class="inline-form">
+                                    <button type="submit" class="btn btn-danger">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+            <% } else { %>
+                <p class="no-students-message">Nenhum aluno cadastrado no momento.</p>
+                <% } %>
     </main>
 </body>
 

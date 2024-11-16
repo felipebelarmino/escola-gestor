@@ -1,30 +1,44 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Render } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Post,
+    Patch,
+    Delete,
+    Param,
+    Body,
+    Render,
+    Redirect,
+} from '@nestjs/common';
 import { AttendanceService } from '../service/attendance.service';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { Attendance } from '../entities/attendance.entity';
+import { StudentsService } from 'src/students/services/students.service';
 import { CreateAttendanceDto } from '../dtos/create-attendance.dto';
 import { UpdateAttendanceDto } from '../dtos/update-attendance.dto';
-import { StudentsService } from 'src/students/services/students.service';
 
-@ApiTags('attendance')
 @Controller('attendance')
 export class AttendanceController {
-    constructor(private readonly attendanceService: AttendanceService, private readonly studentsService: StudentsService,) { }
+    constructor(
+        private readonly attendanceService: AttendanceService,
+        private readonly studentsService: StudentsService,
+    ) { }
 
     @Get()
-    @ApiOperation({ summary: 'Listar todas as presenças' })
-    @ApiResponse({ status: 200, description: 'Lista de presenças retornada com sucesso.' })
     @Render('attendance/index')
     async getAttendancePage() {
-        const students = await this.studentsService.findAll(); // Busca todos os alunos
+        const students = await this.studentsService.findAll();
         return { students };
     }
 
-    @Post()
-    @ApiOperation({ summary: 'Registrar uma nova presença' })
-    @ApiResponse({ status: 201, description: 'Presença registrada com sucesso.' })
-    create(@Body() createAttendanceDto: CreateAttendanceDto): Promise<Attendance> {
-        return this.attendanceService.create(createAttendanceDto);
+    @Get('create/:studentId')
+    @Render('attendance/register')
+    async createAttendancePage(@Param('studentId') studentId: string) {
+        const student = await this.studentsService.findOne(+studentId);
+        return { student };
+    }
+
+    @Post('create')
+    @Redirect('/attendance')
+    async create(@Body() createAttendanceDto: CreateAttendanceDto) {
+        await this.attendanceService.create(createAttendanceDto);
     }
 
     @Get(':id')
@@ -36,19 +50,25 @@ export class AttendanceController {
     }
 
     @Patch(':id')
-    @ApiOperation({ summary: 'Atualizar uma presença' })
-    @ApiResponse({ status: 200, description: 'Presença atualizada com sucesso.' })
-    update(
-        @Param('id') id: string,
+    @Redirect('/attendance')
+    async update(
+        @Param('id') id: number,
         @Body() updateAttendanceDto: UpdateAttendanceDto,
-    ): Promise<Attendance> {
-        return this.attendanceService.update(+id, updateAttendanceDto);
+    ) {
+        await this.attendanceService.update(id, updateAttendanceDto);
     }
 
     @Delete(':id')
-    @ApiOperation({ summary: 'Remover uma presença' })
-    @ApiResponse({ status: 200, description: 'Presença removida com sucesso.' })
-    remove(@Param('id') id: string): Promise<void> {
-        return this.attendanceService.remove(+id);
+    @Redirect('/attendance')
+    async remove(@Param('id') id: number) {
+        await this.attendanceService.remove(id);
+    }
+
+    @Get('edit/:id')
+    @Render('attendance/edit')
+    async editAttendancePage(@Param('id') id: number) {
+        const attendance = await this.attendanceService.findOne(id);
+        const student = attendance.student;
+        return { attendance, student };
     }
 }

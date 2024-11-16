@@ -1,19 +1,19 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity()
-export class FinancialReport {
+@Entity('financial_transactions')
+export class FinancialTransaction {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    month: number;
+    @Column({ type: 'date' })
+    date: string;
 
     @Column()
-    year: number;
+    description: string;
+
+    @Column({ type: 'varchar', length: 10 })
+    type: 'income' | 'expense';
 
     @Column({ type: 'decimal', precision: 10, scale: 2 })
-    totalIncome: number;
-
-    @Column({ type: 'decimal', precision: 10, scale: 2 })
-    totalExpenses: number;
+    amount: number;
 }

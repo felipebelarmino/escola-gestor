@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= transaction ? 'Editar Transação' : 'Adicionar Transação' %>
+    </title>
+    <link rel="stylesheet" href="/css/financial-report.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1>
+            <%= transaction ? 'Editar Transação' : 'Adicionar Transação' %>
+        </h1>
+    </header>
+
+    <main class="container">
+        <form action="/financial-report<%= transaction ? `/${transaction.id}?_method=PATCH` : '' %>" method="POST">
+            <label for="date">Data:</label>
+            <input type="date" id="date" name="date" value="<%= transaction?.date || '' %>" required>
+
+            <label for="description">Descrição:</label>
+            <input type="text" id="description" name="description" value="<%= transaction?.description || '' %>"
+                required>
+
+            <label for="type">Tipo:</label>
+            <select id="type" name="type" required>
+                <option value="income" <%=transaction?.type==='income' ? 'selected' : '' %>>Entrada</option>
+                <option value="expense" <%=transaction?.type==='expense' ? 'selected' : '' %>>Saída</option>
+            </select>
+
+            <label for="amount">Valor:</label>
+            <input type="number" step="0.01" id="amount" name="amount" value="<%= transaction?.amount || '' %>"
+                required>
+
+            <div class="form-actions">
+                <a href="/financial-report" class="btn btn-cancel">Cancelar</a>
+                <button type="submit" class="btn btn-save">
+                    <%= transaction ? 'Atualizar' : 'Salvar' %>
+                </button>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>

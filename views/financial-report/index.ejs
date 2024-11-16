@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios Financeiros</title>
+    <link rel="stylesheet" href="/css/financial-report.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-left">
+            <!-- Ícone para voltar à Home -->
+            <a href="/" class="logo">
+                <img src="https://5.imimg.com/data5/TX/KH/GLADMIN-9740327/online-school-management-software-500x500.jpg"
+                    alt="Escola Gestor">
+            </a>
+        </div>
+        <h1>Relatórios Financeiros</h1>
+        <div class="header-right">
+            <a href="/financial-report/create" class="btn btn-primary">Adicionar Transação</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="summary">
+            <div class="card income">
+                <h2>Entradas</h2>
+                <p>R$ <%= summary.income.toFixed(2) %>
+                </p>
+            </div>
+            <div class="card expenses">
+                <h2>Saídas</h2>
+                <p>R$ <%= summary.expenses.toFixed(2) %>
+                </p>
+            </div>
+            <div class="card balance">
+                <h2>Saldo</h2>
+                <p>R$ <%= summary.balance.toFixed(2) %>
+                </p>
+            </div>
+        </section>
+
+        <% if (transactions.length> 0) { %>
+            <table class="transactions-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Descrição</th>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% transactions.forEach(transaction=> { %>
+                        <tr>
+                            <td>
+                                <%= new Date(transaction.date).toLocaleDateString() %>
+                            </td>
+                            <td>
+                                <%= transaction.description %>
+                            </td>
+                            <td>
+                                <%= transaction.type==='income' ? 'Entrada' : 'Saída' %>
+                            </td>
+                            <td>R$ <%= transaction.amount.toFixed(2) %>
+                            </td>
+                            <td>
+                                <a href="/financial-report/edit/<%= transaction.id %>"
+                                    class="btn btn-secondary">Editar</a>
+                                <form action="/financial-report/<%= transaction.id %>?_method=DELETE" method="POST"
+                                    class="inline-form">
+                                    <button type="submit" class="btn btn-danger">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+            <% } else { %>
+                <p class="no-data-message">Nenhuma transação registrada.</p>
+                <% } %>
+    </main>
+</body>
+
+</html>

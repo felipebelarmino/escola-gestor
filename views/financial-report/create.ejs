@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Transação</title>
+    <link rel="stylesheet" href="/css/financial-report.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1>Adicionar Transação</h1>
+        <a href="/financial-report" class="btn btn-primary">Voltar</a>
+    </header>
+
+    <main class="container">
+        <form action="/financial-report" method="POST">
+            <label for="date">Data:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="description">Descrição:</label>
+            <input type="text" id="description" name="description" placeholder="Descrição da transação" required>
+
+            <label for="type">Tipo:</label>
+            <select id="type" name="type" required>
+                <option value="income">Entrada</option>
+                <option value="expense">Saída</option>
+            </select>
+
+            <label for="amount">Valor:</label>
+            <input type="number" id="amount" name="amount" step="0.01" placeholder="Digite o valor" required>
+
+            <div class="form-actions">
+                <a href="/financial-report" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-save">Salvar</button>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>

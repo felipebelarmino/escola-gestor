@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Presença</title>
+    <link rel="stylesheet" href="/css/attendance.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-left">
+            <a href="/attendance/<%= student.id %>" class="btn btn-secondary">Voltar</a>
+        </div>
+        <h1>Registrar Presença - <%= student.name %>
+        </h1>
+    </header>
+
+    <main class="container">
+        <form action="/attendance/create" method="POST" class="attendance-form">
+            <input type="hidden" name="studentId" value="<%= student.id %>">
+
+            <label for="date">Data:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="isPresent">Presente:</label>
+            <select id="isPresent" name="isPresent" required>
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+            </select>
+
+            <label for="remarks">Observações:</label>
+            <textarea id="remarks" name="remarks" placeholder="Digite observações (opcional)"></textarea>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-save">Salvar</button>
+                <a href="/attendance/<%= student.id %>" class="btn btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>

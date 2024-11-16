@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -11,27 +11,66 @@
 
 <body>
     <header class="header">
+        <div class="header-left">
+            <!-- Ícone para voltar à Home -->
+            <a href="/" class="logo">
+                <img src="https://5.imimg.com/data5/TX/KH/GLADMIN-9740327/online-school-management-software-500x500.jpg"
+                    alt="Escola Gestor">
+            </a>
+        </div>
         <h1>Presenças de <%= student.name %>
         </h1>
+        <div class="header-right">
+            <!-- Botão para voltar ao Controle de Presenças -->
+            <a href="/attendance" class="btn btn-secondary">Voltar</a>
+            <!-- Botão para adicionar presença -->
+            <a href="/attendance/create/<%= student.id %>" class="btn btn-primary">Registrar Presença</a>
+        </div>
     </header>
+
     <main class="container">
-        <section>
-            <% if (attendances.length> 0) { %>
+        <% if (attendances.length> 0) { %>
+            <section class="attendance-list">
                 <h2>Presenças Registradas</h2>
-                <ul>
-                    <% attendances.forEach(attendance=> { %>
-                        <li>
-                            <strong>Data:</strong>
-                            <%= attendance.date %> |
-                                <strong>Presente:</strong>
-                                <%= attendance.isPresent ? 'Sim' : 'Não' %>
-                        </li>
-                        <% }); %>
-                </ul>
-                <% } else { %>
+                <table class="attendance-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Presente</th>
+                            <th>Observações</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% attendances.forEach(attendance=> { %>
+                            <tr>
+                                <td>
+                                    <%= new Date(attendance.date + 'T00:00:00' ).toLocaleDateString() %>
+                                </td>
+                                <td>
+                                    <%= attendance.isPresent ? 'Sim' : 'Não' %>
+                                </td>
+                                <td>
+                                    <%= attendance.remarks || 'Nenhuma' %>
+                                </td>
+                                <td>
+                                    <a href="/attendance/edit/<%= attendance.id %>" class="btn btn-secondary">Editar</a>
+                                    <form action="/attendance/<%= attendance.id %>?_method=DELETE" method="POST"
+                                        class="inline-form">
+                                        <button type="submit" class="btn btn-danger">Excluir</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </section>
+            <% } else { %>
+                <section class="no-attendance">
                     <h2>Não há presenças registradas para este aluno.</h2>
-                    <% } %>
-        </section>
+                    <p>Você pode registrar uma nova presença clicando no botão acima.</p>
+                </section>
+                <% } %>
     </main>
 </body>
 

@@ -12,43 +12,63 @@ export class AttendanceService {
         private readonly attendanceRepository: Repository<Attendance>,
     ) { }
 
-    create(createAttendanceDto: CreateAttendanceDto): Promise<Attendance> {
-        const attendance = this.attendanceRepository.create(createAttendanceDto);
+    async create(createAttendanceDto: CreateAttendanceDto): Promise<Attendance> {
+        const attendance = this.attendanceRepository.create({
+            ...createAttendanceDto,
+            student: { id: +createAttendanceDto.studentId },
+        });
         return this.attendanceRepository.save(attendance);
     }
 
-    findAll(): Promise<Attendance[]> {
+    async findAll(): Promise<Attendance[]> {
         return this.attendanceRepository.find({ relations: ['student'] });
     }
 
-    findOne(id: number): Promise<Attendance> {
-        return this.attendanceRepository.findOne({ where: { id }, relations: ['student'] });
+    async findOne(id: number): Promise<Attendance> {
+        const attendance = await this.attendanceRepository.findOne({
+            where: { id },
+            relations: ['student'],
+        });
+        if (!attendance) {
+            throw new NotFoundException(`Attendance with ID ${id} not found`);
+        }
+        return attendance;
     }
 
-    findByStudentId(studentId: number): Promise<Attendance[]> {
-        return this.attendanceRepository.find({
+    async findByStudentId(studentId: number): Promise<Attendance[]> {
+        const result = await this.attendanceRepository.find({
             where: { student: { id: studentId } },
             relations: ['student'],
         });
+
+        return result;
     }
 
+    async update(
+        id: number,
+        updateAttendanceDto: UpdateAttendanceDto,
+    ): Promise<Attendance> {
+        const attendance = await this.findOne(id);
 
-    async update(id: number, updateAttendanceDto: UpdateAttendanceDto): Promise<Attendance> {
-        const attendance = await this.attendanceRepository.findOne({ where: { id } });
-        if (!attendance) {
-            throw new NotFoundException(`Attendance with ID ${id} not found`);
-        }
-        await this.attendanceRepository.update(id, updateAttendanceDto);
-        return this.attendanceRepository.findOne({ where: { id } });
+        const isPresent =
+            updateAttendanceDto.isPresent === 'true'
+                ? true
+                : updateAttendanceDto.isPresent === 'false'
+                    ? false
+                    : undefined;
+
+        await this.attendanceRepository.update(id, {
+            ...updateAttendanceDto,
+            isPresent: isPresent !== undefined ? isPresent : attendance.isPresent,
+            student: { id: +attendance.student.id },
+        });
+
+        return this.findOne(id);
     }
+
 
     async remove(id: number): Promise<void> {
-        const attendance = await this.attendanceRepository.findOne({ where: { id } });
-        if (!attendance) {
-            throw new NotFoundException(`Attendance with ID ${id} not found`);
-        }
-        await this.attendanceRepository.delete(id);
+        const attendance = await this.findOne(id);
+        await this.attendanceRepository.remove(attendance);
     }
-
-
 }

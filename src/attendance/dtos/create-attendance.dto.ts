@@ -12,7 +12,7 @@ export class CreateAttendanceDto {
 
     @ApiProperty({ description: 'Presente ou ausente', default: true })
     @IsBoolean()
-    isPresent: boolean;
+    isPresent: boolean | any;
 
     @ApiProperty({ description: 'Observações', required: false })
     @IsOptional()
