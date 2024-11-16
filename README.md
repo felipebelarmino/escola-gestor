@@ -25,6 +25,10 @@ Sistema de Gestão Escolar desenvolvido com o framework [NestJS](https://github.
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
 
+#### Docker
+- Build: docker build -t escola-gestor .
+- Subir container: docker run -d -p 3012:3012 -v $(pwd):/app -v /app/node_modules escola-gestor
+
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
