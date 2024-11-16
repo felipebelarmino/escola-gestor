@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Aluno</title>
+    <link rel="stylesheet" href="/css/students-create.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1>Criar Aluno</h1>
+    </header>
+    <main class="container">
+        <form action="/students" method="POST">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" placeholder="Digite o nome do aluno" required>
+
+            <label for="age">Idade:</label>
+            <input type="number" id="age" name="age" placeholder="Digite a idade do aluno" required>
+
+            <label for="class">Classe:</label>
+            <input type="text" id="class" name="class" placeholder="Digite a classe do aluno" required>
+
+            <div class="form-actions">
+                <a href="/students" class="btn btn-cancel">Cancelar</a>
+                <button type="submit" class="btn btn-save">Salvar</button>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>

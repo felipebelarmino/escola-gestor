@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alunos</title>
+    <link rel="stylesheet" href="/css/students.css">
+    <script defer src="/js/students.js"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-left">
+            <!-- Logotipo -->
+            <a href="/" class="logo">
+                <img src="https://5.imimg.com/data5/TX/KH/GLADMIN-9740327/online-school-management-software-500x500.jpg"
+                    alt="Escola Gestor">
+            </a>
+        </div>
+
+        <h1>Lista de Alunos</h1>
+
+        <div class="header-right">
+            <!-- Botão para Adicionar Aluno -->
+            <a href="/students/create" class="btn btn-primary">Adicionar Aluno</a>
+            <!-- Botão Configurações -->
+            <a href="/settings" class="btn btn-secondary">Configurações</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <% if (Object.keys(groupedStudents).length> 0) { %>
+            <% for (const [className, students] of Object.entries(groupedStudents)) { %>
+                <section class="class-group">
+                    <h2>
+                        <%= className %>
+                    </h2>
+                    <ul>
+                        <% students.forEach(student=> { %>
+                            <li class="student-item">
+                                <div class="student-info">
+                                    <strong class="student-name">
+                                        <%= student.name %>
+                                    </strong>
+                                </div>
+                                <div class="actions">
+                                    <a href="/students/edit/<%= student.id %>" class="btn btn-secondary">Editar</a>
+                                    <button class="btn btn-danger" data-id="<%= student.id %>"
+                                        onclick="openDeleteModal(event)">Excluir</button>
+                                </div>
+                            </li>
+                            <% }); %>
+                    </ul>
+                </section>
+                <% } %>
+                    <% } else { %>
+                        <p class="no-students-message">Não há alunos cadastrados.</p>
+                        <% } %>
+    </main>
+
+    <!-- Modal de Confirmação -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h2>Confirmação de Exclusão</h2>
+            <p>Tem certeza de que deseja excluir este aluno?</p>
+            <div class="modal-actions">
+                <button id="confirmDeleteBtn" class="btn btn-danger">Excluir</button>
+                <button id="cancelDeleteBtn" class="btn btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

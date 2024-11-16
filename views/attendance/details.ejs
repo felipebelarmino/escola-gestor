@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presenças de <%= student.name %>
+    </title>
+    <link rel="stylesheet" href="/css/attendance.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1>Presenças de <%= student.name %>
+        </h1>
+    </header>
+    <main class="container">
+        <section>
+            <% if (attendances.length> 0) { %>
+                <h2>Presenças Registradas</h2>
+                <ul>
+                    <% attendances.forEach(attendance=> { %>
+                        <li>
+                            <strong>Data:</strong>
+                            <%= attendance.date %> |
+                                <strong>Presente:</strong>
+                                <%= attendance.isPresent ? 'Sim' : 'Não' %>
+                        </li>
+                        <% }); %>
+                </ul>
+                <% } else { %>
+                    <h2>Não há presenças registradas para este aluno.</h2>
+                    <% } %>
+        </section>
+    </main>
+</body>
+
+</html>
