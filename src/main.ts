@@ -29,7 +29,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
 
-  await app.listen(3011);
+  await app.listen(3012);
 
   const logger = new Logger(AppModule.name);
 
