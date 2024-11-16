@@ -1,0 +1,196 @@
+/* Reset básico */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header */
+header.header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+}
+
+header.header .header-left,
+header.header .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+header.header h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+}
+
+header.header .logo img {
+    height: 50px;
+    width: auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+header.header .logo img:hover {
+    transform: scale(1.05);
+}
+
+/* Botões no Header */
+header.header .btn {
+    background-color: #007bff;
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header.header .btn:hover {
+    background-color: #0056b3;
+}
+
+header.header .btn-secondary {
+    background-color: #6c757d;
+}
+
+header.header .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+header.header .btn-danger {
+    background-color: #e74c3c;
+}
+
+header.header .btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.container:hover {
+    transform: scale(1.01);
+}
+
+/* Tabela de Notas */
+.grades-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.grades-table th,
+.grades-table td {
+    padding: 0.8rem 1rem;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.grades-table th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+.grades-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.grades-table .btn {
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.grades-table .btn-secondary {
+    background-color: #6c757d;
+}
+
+.grades-table .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.grades-table .btn-danger {
+    background-color: #e74c3c;
+}
+
+.grades-table .btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Mensagem para lista vazia */
+.no-grades-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+}
+
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filters label {
+    font-weight: bold;
+    color: #555;
+}
+
+.filters input,
+.filters button {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.filters button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.filters button:hover {
+    background-color: #45a049;
+}
+
+.subject-group {
+    margin-bottom: 2rem;
+}
+
+.subject-group h2 {
+    color: #4CAF50;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 0.5rem;
+}

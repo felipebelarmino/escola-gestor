@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Notas</title>
+    <link rel="stylesheet" href="/css/grades.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-left">
+            <a href="/" class="logo">
+                <img src="https://5.imimg.com/data5/TX/KH/GLADMIN-9740327/online-school-management-software-500x500.jpg"
+                    alt="Escola Gestor">
+            </a>
+        </div>
+
+        <h1>Lista de Notas</h1>
+
+        <div class="header-right">
+            <a href="/grades/create" class="btn btn-primary">Adicionar Nota</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <form action="/grades" method="GET" class="filters">
+            <label for="student">Aluno:</label>
+            <input type="text" id="student" name="student" value="<%= filters.studentName || '' %>">
+
+            <label for="subject">Disciplina:</label>
+            <input type="text" id="subject" name="subject" value="<%= filters.subject || '' %>">
+
+            <label for="startDate">Data Inicial:</label>
+            <input type="date" id="startDate" name="startDate" value="<%= filters.startDate || '' %>">
+
+            <label for="endDate">Data Final:</label>
+            <input type="date" id="endDate" name="endDate" value="<%= filters.endDate || '' %>">
+
+            <button type="submit" class="btn btn-filter">Filtrar</button>
+        </form>
+
+        <% if (Object.keys(groupedBySubject).length> 0) { %>
+            <% for (const [subject, grades] of Object.entries(groupedBySubject)) { %>
+                <section class="subject-group">
+                    <h2>
+                        <%= subject %>
+                    </h2>
+                    <table class="grades-table">
+                        <thead>
+                            <tr>
+                                <th>Aluno</th>
+                                <th>Nota</th>
+                                <th>Data</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% grades.forEach(grade=> { %>
+                                <tr>
+                                    <td>
+                                        <%= grade.student.name %>
+                                    </td>
+                                    <td>
+                                        <%= grade.grade %>
+                                    </td>
+                                    <td>
+                                        <%= new Date(grade.date).toLocaleDateString() %>
+                                    </td>
+                                    <td>
+                                        <a href="/grades/edit/<%= grade.id %>" class="btn btn-secondary">Editar</a>
+                                        <form action="/grades/<%= grade.id %>?_method=DELETE" method="POST"
+                                            class="inline-form">
+                                            <button type="submit" class="btn btn-danger">Excluir</button>
+                                        </form>
+
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                    </table>
+                </section>
+                <% } %>
+                    <% } else { %>
+                        <p class="no-grades-message">Não há notas registradas para os filtros aplicados.</p>
+                        <% } %>
+    </main>
+</body>
+
+</html>

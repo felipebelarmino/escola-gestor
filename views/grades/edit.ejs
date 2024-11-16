@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Nota</title>
+    <link rel="stylesheet" href="/css/grades-edit.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1>Editar Nota</h1>
+    </header>
+    <main class="container">
+        <form action="/grades/<%= grade.id %>?_method=PATCH" method="POST">
+            <!-- Campo para selecionar o aluno -->
+            <label for="studentId">Aluno:</label>
+            <select id="studentId" name="studentId" required>
+                <% students.forEach(student=> { %>
+                    <option value="<%= student.id %>" <%=grade.student && grade.student.id===student.id ? 'selected'
+                        : '' %>>
+                        <%= student.name %>
+                    </option>
+                    <% }); %>
+            </select>
+
+            <!-- Campo para editar a disciplina -->
+            <label for="subject">Disciplina:</label>
+            <input type="text" id="subject" name="subject" value="<%= grade.subject %>" required>
+
+            <!-- Campo para editar a nota -->
+            <label for="grade">Nota:</label>
+            <input type="number" step="0.01" id="grade" name="grade" value="<%= grade.grade %>" required>
+
+            <!-- Botões de ação -->
+            <div class="form-actions">
+                <a href="/grades" class="btn btn-cancel">Cancelar</a>
+                <button type="submit" class="btn btn-save">Atualizar</button>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>

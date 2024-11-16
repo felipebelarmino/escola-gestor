@@ -1,21 +1,27 @@
-import { Student } from 'src/students/entities/student.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Student } from '../../students/entities/student.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Grade {
     @PrimaryGeneratedColumn()
+    @ApiProperty({ description: 'ID único da nota' })
     id: number;
 
     @ManyToOne(() => Student, { eager: true })
-    @JoinColumn({ name: 'student_id' })
+    @JoinColumn({ name: 'studentId' })
+    @ApiProperty({ description: 'Aluno relacionado à nota' })
     student: Student;
 
     @Column()
+    @ApiProperty({ description: 'Disciplina da nota' })
     subject: string;
 
-    @Column({ type: 'decimal', precision: 5, scale: 2 })
+    @Column('float')
+    @ApiProperty({ description: 'Valor da nota' })
     grade: number;
 
-    @Column()
-    period: string;
+    @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+    @ApiProperty({ description: 'Data da avaliação' })
+    date: string;
 }
